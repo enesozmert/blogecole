@@ -27,17 +27,17 @@ public class UserManager implements UserService {
     @Override
     public Result update(User user)
     {
+        if(user==null) return new ErrorResult();
         User userUpdate = userDao.getOne(user.getId());
         userUpdate.setEmail(user.getEmail());
         userUpdate.setFirstName(user.getFirstName());
         userUpdate.setLastName(user.getLastName());
-        if(user==null) return new ErrorResult();
         userDao.save(userUpdate);
         return new SuccessResult();
     }
     @Override
     public DataResult<User> getById(int id) {
-        User user = userDao.getOne(id);
+        User user = userDao.findById(id);
         if(user==null) return new ErrorDataResult<User>();
         return (new SuccessDataResult<User>(user));
     }
