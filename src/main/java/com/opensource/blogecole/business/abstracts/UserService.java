@@ -8,7 +8,9 @@ import com.opensource.blogecole.entities.concretes.User;
 import java.util.List;
 
 public interface UserService {
-    DataResult<List<User>> getAll();
-    DataResult<User> getByEmail(String email);
     Result add(User user);
+    Result update(User user);
+    DataResult<List<User>> getAll();
+    DataResult<User> getById(int id);
+    DataResult<User> getByEmail(String email);
 }

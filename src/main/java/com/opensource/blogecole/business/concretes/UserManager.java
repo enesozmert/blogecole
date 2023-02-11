@@ -1,10 +1,7 @@
 package com.opensource.blogecole.business.concretes;
 
 import com.opensource.blogecole.business.abstracts.UserService;
-import com.opensource.blogecole.core.utilities.results.DataResult;
-import com.opensource.blogecole.core.utilities.results.Result;
-import com.opensource.blogecole.core.utilities.results.SuccessDataResult;
-import com.opensource.blogecole.core.utilities.results.SuccessResult;
+import com.opensource.blogecole.core.utilities.results.*;
 import com.opensource.blogecole.dataAccess.abstracts.UserDao;
 import com.opensource.blogecole.entities.concretes.User;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,18 +20,36 @@ public class UserManager implements UserService {
     }
 
     @Override
-    public DataResult<List<User>> getAll() {
+    public Result add(User user) {
+        userDao.save(user);
+        return new SuccessResult();
+    }
+    @Override
+    public Result update(User user)
+    {
+        User userUpdate = userDao.getOne(user.getId());
+        userUpdate.setEmail(user.getEmail());
+        userUpdate.setFirstName(user.getFirstName());
+        userUpdate.setLastName(user.getLastName());
+        if(user==null) return new ErrorResult();
+        userDao.save(userUpdate);
+        return new SuccessResult();
+    }
+    @Override
+    public DataResult<User> getById(int id) {
+        User user = userDao.getOne(id);
+        if(user==null) return new ErrorDataResult<User>();
+        return (new SuccessDataResult<User>(user));
+    }
+
+    @Override
+    public DataResult<List<User>> getAll()
+    {
         return new SuccessDataResult<List<User>>( userDao.findAll() );
     }
 
     @Override
     public DataResult<User> getByEmail(String email) {
         return new SuccessDataResult<User>(userDao.findByEmail(email));
-    }
-
-    @Override
-    public Result add(User user) {
-        userDao.save(user);
-        return new SuccessResult();
     }
 }
