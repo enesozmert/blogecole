@@ -13,7 +13,7 @@ import jakarta.persistence.Id;
 
 @Entity
 @Data
-@Table(name="Categories")
+@Table(name="Comments")
 @AllArgsConstructor
 @NoArgsConstructor
 public class Comment {

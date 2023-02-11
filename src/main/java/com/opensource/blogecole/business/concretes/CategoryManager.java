@@ -28,10 +28,9 @@ public class CategoryManager implements CategoryService {
     }
 
     @Override
-    public Result update(Category category) {
-        if (category==null) return new ErrorResult();
-        Category categoryUpdate = categoryDao.getOne(category.getId());
-        categoryUpdate.setName(categoryUpdate.getName());
+    public Result update(Category category) { // id = 1 name=blog => (id= 1 name=blog1)param
+        Category categoryUpdate = getById(category.getId()).getData();
+        categoryUpdate.setName(category.getName());
         categoryDao.save(categoryUpdate);
         return new SuccessResult();
     }

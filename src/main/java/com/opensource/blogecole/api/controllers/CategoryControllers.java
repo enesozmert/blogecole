@@ -6,10 +6,7 @@ import com.opensource.blogecole.core.utilities.results.Result;
 import com.opensource.blogecole.entities.concretes.Category;
 import com.opensource.blogecole.entities.concretes.UserProfile;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -23,12 +20,12 @@ public class CategoryControllers {
         this.categoryService = categoryService;
     }
 
-    @PostMapping("/add")
-    public Result add(Category category){
+    @PostMapping(value = "/add")
+    public Result add(@RequestBody Category category){
         return categoryService.add(category);
     }
-    @PostMapping("/update")
-    public Result update(Category category){
+    @PostMapping(value = "/update")
+    public Result update(@RequestBody Category category){
         return categoryService.update(category);
     }
 

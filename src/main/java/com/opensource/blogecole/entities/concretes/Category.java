@@ -23,9 +23,9 @@ public class Category {
     private int id;
 
     @Column(name="name",nullable=false)
-    private int name;
+    private String name;
 
-    public Category(int name) {
+    public Category(String name) {
         this.name = name;
     }
 }
