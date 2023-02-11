@@ -33,4 +33,13 @@ public class Blog {
 
     @Column(name="commentId",nullable=false)
     private int commentId;
+
+    public Blog(String title, String description, String body, int authorId, int categoryId, int commentId) {
+        this.title = title;
+        this.description = description;
+        this.body = body;
+        this.authorId = authorId;
+        this.categoryId = categoryId;
+        this.commentId = commentId;
+    }
 }
