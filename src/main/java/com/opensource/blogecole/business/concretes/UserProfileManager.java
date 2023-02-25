@@ -14,7 +14,6 @@ import java.util.List;
 public class UserProfileManager implements UserProfileService {
 
     private UserProfileDao userProfileDao;
-
     @Autowired
     public UserProfileManager(UserProfileDao userProfileDao) {
         this.userProfileDao = userProfileDao;
@@ -25,9 +24,9 @@ public class UserProfileManager implements UserProfileService {
         userProfileDao.save(userProfile);
         return new SuccessResult();
     }
-
     @Override
-    public Result update(UserProfile userProfile) {
+    public Result update(UserProfile userProfile)
+    {
         if(userProfile==null) return new ErrorResult();
         UserProfile userProfileUpdate = userProfileDao.getOne(userProfile.getId());
         userProfileUpdate.setImagePath(userProfile.getImagePath());
@@ -36,8 +35,9 @@ public class UserProfileManager implements UserProfileService {
     }
 
     @Override
-    public DataResult<List<UserProfile>> getAll() {
-        return (new SuccessDataResult<List<UserProfile>>(userProfileDao.findAll()));
+    public DataResult<List<UserProfile>> getAll()
+    {
+        return new SuccessDataResult<List<UserProfile>>( userProfileDao.findAll());
     }
 
     @Override
@@ -46,4 +46,8 @@ public class UserProfileManager implements UserProfileService {
         if(userProfile==null) return new ErrorDataResult<UserProfile>();
         return (new SuccessDataResult<UserProfile>(userProfile));
     }
+
+
+
+
 }
