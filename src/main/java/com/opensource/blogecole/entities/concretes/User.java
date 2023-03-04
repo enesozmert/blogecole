@@ -1,15 +1,12 @@
 package com.opensource.blogecole.entities.concretes;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.Table;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import java.util.Set;
 
 @Entity
 @Data
@@ -40,6 +37,10 @@ public class User {
 
     @Column(name="emailVerifyCode",nullable=false)
     private String emailVerifyCode;
+
+    @OneToMany(mappedBy="author")
+    @JsonIgnore()
+    Set<Blog> blog;
 
     public User(String firstName, String lastName, String email, boolean emailVerified, String password, String emailVerifyCode) {
         this.firstName = firstName;

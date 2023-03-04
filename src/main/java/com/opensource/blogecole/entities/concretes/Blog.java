@@ -1,9 +1,12 @@
 package com.opensource.blogecole.entities.concretes;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+
+import java.util.Set;
 
 @Entity
 @Data
@@ -28,18 +31,28 @@ public class Blog {
     @Column(name="authorId",nullable=false)
     private int authorId;
 
-    @Column(name="categoryId",nullable=false)
-    private int categoryId;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name="authorId")
+    private User author;
+
+    @ManyToMany(cascade = CascadeType.ALL)
+    @JoinTable(
+            name = "blog_category",
+            joinColumns = @JoinColumn(name = "blog_id"),
+            inverseJoinColumns = @JoinColumn(name = "category_id"))
+    Set<Category> categories;
 
     @Column(name="commentId",nullable=false)
     private int commentId;
 
-    public Blog(String title, String description, String body, int authorId, int categoryId, int commentId) {
+    @OneToMany(mappedBy="blog")
+    @JsonIgnore()
+    Set<Comment> comments;
+
+    public Blog(String title, String description, String body, int authorId) {
         this.title = title;
         this.description = description;
         this.body = body;
         this.authorId = authorId;
-        this.categoryId = categoryId;
-        this.commentId = commentId;
     }
 }

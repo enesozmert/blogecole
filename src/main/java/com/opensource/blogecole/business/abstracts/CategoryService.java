@@ -16,6 +16,5 @@ public interface CategoryService {
 
     Result update(Category category);
 
-
     Result add(Category category);
 }

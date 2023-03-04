@@ -1,15 +1,10 @@
 package com.opensource.blogecole.entities.concretes;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.Table;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-
-import jakarta.persistence.Column;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
 
 @Entity
 @Data
@@ -27,6 +22,11 @@ public class Comment {
 
     @Column(name="blogId",nullable=false)
     private int blogId;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name="blogId")
+    @JsonIgnore
+    private Blog blog;
 
     @Column(name="text",nullable=false)
     private int text;

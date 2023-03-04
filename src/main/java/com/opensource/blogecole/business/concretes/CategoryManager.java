@@ -24,7 +24,6 @@ public class CategoryManager implements CategoryService {
 
     @Override
     public Result add(Category category) {
-
         Result businessRules = BusinessRules.run(
                 isLowerCase(category.getName())
         );
